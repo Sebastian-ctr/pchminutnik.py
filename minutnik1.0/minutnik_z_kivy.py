@@ -6,8 +6,6 @@ from kivy.properties import NumericProperty, ObjectProperty
 from kivy.clock import Clock
 
 
-
-
 class MyGrid(Widget):
     wartosc = ObjectProperty(None) #to co jest podane
     wyswietlane_minuty = NumericProperty(0) # to co się wyświetla
@@ -17,6 +15,7 @@ class MyGrid(Widget):
     trening = ObjectProperty('Wpisz ilość minut, potem wciśnij "start"\n by zacząć odliczanie')
     wielkosc_czcionki_napis = NumericProperty(20)
     kontrola = False
+    kontrola_napis = False
 
     def przycisk(self):
 
@@ -25,10 +24,13 @@ class MyGrid(Widget):
             self.trening = 'Trening trwa'
             self.kontrola = True
             def odliczanie():
+                if self.wartosc.text != '':
+                    self.kontrola_napis = False
                 if self.czas <= 0 and self.sekundy == 0:
                     Clock.unschedule(self.event)
-                    self.trening = 'koniec treningu'
-                    self.wielkosc_czcionki_napis = 50
+                    if self.kontrola_napis == False:
+                        self.trening = 'koniec treningu'
+                        self.wielkosc_czcionki_napis = 50
 
                 else:
                     self.czas -= 1
@@ -52,12 +54,13 @@ class MyGrid(Widget):
                 czas_licz()
                 odliczanie()
             try:
-                self.wyswietlane_minuty = int(self.wartosc.text) - 1
-                self.czas = int(self.wartosc.text)*60
-                self.czas_pocz = int(self.wartosc.text)*60
-                self.sekundy = 60
-                czas_licz()
-                odliczanie()
+                if self.wyswietlane_minuty == 0 and self.sekundy == 0:
+                    self.wyswietlane_minuty = int(self.wartosc.text) - 1
+                    self.czas = int(self.wartosc.text)*60
+                    self.czas_pocz = int(self.wartosc.text)*60
+                    self.sekundy = 60
+                    czas_licz()
+                    odliczanie()
             except ValueError:
                 pass
             self.wartosc.text = ''
@@ -87,8 +90,7 @@ class MyGrid(Widget):
         self.wyswietlane_minuty = 0
         self.sekundy = 0
         self.trening = ''
-
-        
+        self.kontrola_napis = True
 
 
 class MinutnikApp(App):
