@@ -1,0 +1,72 @@
+#:kivy 1.0.9
+<MyGrid>:
+    wartosc: wartosc
+    
+    GridLayout:
+        cols:1
+        size:root.width, root.height
+        GridLayout:
+            cols:3
+            Label:
+                text:str(root.wyswietlane_minuty)
+                font_size:200
+                bold:True
+                center_x: root.width *3/2
+                top:root.top -50
+            Label:
+                text:':'
+                font_size:100
+            Label:
+                text:str(root.sekundy)
+                font_size:200
+                bold:True
+                center_x:root.width + 1/4
+                top:root.top -50
+
+        GridLayout:
+            cols:3
+            row_default_height: 150
+            row_force_default: True
+            Button:
+                text:'start'
+                font_size:40
+                bold:True
+                background_normal:''
+                background_color: .16, .41, .09
+                border: [4] *4
+                on_press:root.przycisk()
+            
+            Button:
+                text:'stop'
+                font_size:40
+                bold:True
+                background_normal:''
+                background_color: .72, .32, .29
+                border: [4] *4
+                on_press:root.zatrzymaj()
+
+            Button:
+                text:'wyzeruj'
+                font_size:40
+                bold:True
+                background_normal:''
+                background_color: .19, .39, .65
+                border: [4] *4
+                size_hint:(1, .2)
+                #pos_hint:(center_x, center_y - 100)
+                on_press:root.zeruj()
+        Label:
+            size_hint:(.2, None)
+            height:50
+            text:str(root.trening)
+            font_size:root.wielkosc_czcionki_napis
+
+
+        TextInput:
+            id:wartosc
+            size_hint:(.2, None)
+            height:50
+            multiline:False
+
+        
+        
