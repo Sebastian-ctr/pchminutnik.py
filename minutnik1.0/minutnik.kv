@@ -32,7 +32,7 @@
                 font_size:40
                 bold:True
                 background_normal:''
-                background_color: .16, .41, .09
+                background_color: .16, .41, .09, 1
                 border: [4] *4
                 on_press:root.przycisk()
             
@@ -41,7 +41,7 @@
                 font_size:40
                 bold:True
                 background_normal:''
-                background_color: .72, .32, .29
+                background_color: .72, .32, .29, 1
                 border: [4] *4
                 on_press:root.zatrzymaj()
 
@@ -49,11 +49,9 @@
                 text:'wyzeruj'
                 font_size:40
                 bold:True
-                background_normal:''
-                background_color: .19, .39, .65
+                background_color: .19, .39, .65, 1
                 border: [4] *4
                 size_hint:(1, .2)
-                #pos_hint:(center_x, center_y - 100)
                 on_press:root.zeruj()
         Label:
             size_hint:(.2, None)

@@ -1,10 +1,12 @@
 import kivy
 import random
+from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ObjectProperty
 from kivy.clock import Clock
 
+kv = Builder.load_file('minutnik.kv')
 
 class MyGrid(Widget):
     wartosc = ObjectProperty(None) #to co jest podane
@@ -16,6 +18,9 @@ class MyGrid(Widget):
     wielkosc_czcionki_napis = NumericProperty(20)
     kontrola = False
     kontrola_napis = False
+
+    def zwroc_kv(self):
+        return self.kv
 
     def przycisk(self):
 
@@ -68,19 +73,19 @@ class MyGrid(Widget):
             self.wartosc.text = ''
     def zatrzymaj(self):
         if self.sekundy > 0:
-            print('zatrzymaj')
+            #print('zatrzymaj')
             Clock.unschedule(self.event)
             self.kontrola = False
 
             znacznik = random.randint(0, 100)
             if znacznik > 50:
-                self.trening = 'przerwa'
+                self.trening = 'Przerwa'
                 self.wielkosc_czcionki_napis = 50
             elif znacznik == 51:
                 self.trening = 'Przerwa? Trzeba jechać dalej ;)'
                 self.wielkosc_czcionki_napis = 50
             else:
-                self.trening = 'przerwa'
+                self.trening = 'Przerwa'
                 self.wielkosc_czcionki_napis = 50
         else:
             pass
@@ -93,10 +98,10 @@ class MyGrid(Widget):
         self.kontrola_napis = True
 
 
-class MinutnikApp(App):
+class MinutnikMyApp(App):
     def build(self):
         return MyGrid()
 
 
 if __name__ == '__main__':
-    MinutnikApp().run()
+    MinutnikMyApp().run()
